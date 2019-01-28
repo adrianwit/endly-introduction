@@ -59,10 +59,14 @@
         message: Bye $name
     ```
 2. Workflow execution
+    * with relative path
     ```bash
     endly -r=workflow/helloworld
     ```
-
+    * with URL
+    ```bash
+    endly -r=https://github.com/adrianwit/endly-introduction/blob/master/workflow/helloworld.yaml
+    ```
 3. Workflow task info
     ```bash
     endly -r=workflow/helloworld -t='?'

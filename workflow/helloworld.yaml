@@ -2,8 +2,8 @@ init:
   name: $params.name
 pipeline:
   task1:
-    action: print
     description: print hello
+    action: print
     message: Hello World $name
   task2:
     subTask1:
@@ -13,6 +13,6 @@ pipeline:
       action: print
       message: subTask 1 $params.name
   task3:
-    action: print
     description: print bye
+    action: print
     message: Bye $name
