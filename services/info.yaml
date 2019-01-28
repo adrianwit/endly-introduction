@@ -1,0 +1,27 @@
+init:
+  target:
+    url:  ssh://127.0.0.1/
+    credentials: dev
+
+defaults:
+  target: $target
+
+pipeline:
+  init:
+    action: exec:run
+    commands:
+      - whoami
+      - echo 'hello ${cmd[0].stdout}'
+  hostInfo:
+    action: exec:run
+    commands:
+      - cat /etc/hosts
+    extract:
+      - key: aliases
+        regExpr: (?sm)127.0.0.1[\s\t]+(.+)
+  debug:
+    action: print
+    message: $AsJSON($init) $AsJSON($hostInfo)
+  summary:
+    action: print
+    message: Extracted 127.0.0.1 aliases $hostInfo.aliases

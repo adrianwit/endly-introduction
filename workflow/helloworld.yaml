@@ -1,0 +1,18 @@
+init:
+  name: $params.name
+pipeline:
+  task1:
+    action: print
+    description: print hello
+    message: Hello World $name
+  task2:
+    subTask1:
+      action: print
+      message: subTask 1 $params.key1
+    subTask2:
+      action: print
+      message: subTask 1 $params.name
+  task3:
+    action: print
+    description: print bye
+    message: Bye $name
