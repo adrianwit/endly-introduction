@@ -2,10 +2,11 @@ init:
   name: $params.name
 pipeline:
   task1:
-    description: print hello
     action: print
     message: Hello World $name
+    description: print hello
   task2:
+    description: test subtasks
     subTask1:
       action: print
       message: subTask 1 $params.key1

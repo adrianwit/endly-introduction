@@ -1,0 +1,9 @@
+init:
+  fiveDaysAgo: $FormatTime('5daysAgoInUTC','yyyyMMdd')
+  10DaysAhead: $FormatTime('5daysAheadInUTC','yyyy-MM-dd hh:mm:ss')
+  encodedMsg: $Base64Encode("This is test")
+  ID: $uuid.next
+pipeline:
+  task1:
+    action: print
+    message: $ID $fiveDaysAgo $10DaysAhead $encodedMsg

@@ -1,0 +1,6 @@
+source:
+  URL: https://raw.githubusercontent.com/adrianwit/endly-introduction/master/
+dest:
+  URL: $target
+assets:
+  'README.md': /tmp/README.md

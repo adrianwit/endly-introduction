@@ -1,0 +1,32 @@
+init:
+  i: 2
+  array:
+    - id: 1
+      name: name 1
+    - id: 2
+      name: name 2
+    - id: 3
+      name: name 3
+
+pipeline:
+  shift:
+    action: print
+    init:
+      item: ${<-array}
+    message: $AsJSON($item)
+
+  push:
+    action: nop
+    init:
+      - name: myItem
+        value:
+          id: 10,
+          name: name 10
+
+      - '->array': $myItem
+  lastNameInfo:
+    action: print
+    message: ${array[$i].name}
+  summary:
+    action: print
+    message: $AsJSON($array)

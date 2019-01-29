@@ -1,0 +1,8 @@
+init:
+ '!to': $params.to
+ greeting: $params.greeting
+ message: "$greeting:/$/? 'Hello $to' : '$greeting $to'"
+pipeline:
+  welome:
+    action: print
+    message: $message

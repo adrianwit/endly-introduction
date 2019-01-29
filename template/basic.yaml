@@ -1,0 +1,19 @@
+pipeline:
+  init:
+    action: print
+    message: init ...
+  tasksX:
+    tag: $pathMatch
+    range: 1..002
+    description: '@desc'
+    subPath: basic/${index}_*
+    template:
+      action1:
+        action: print
+        message: "action 1 - idx: $index, tagId: $tagId, path: $path"
+      action2:
+        action: print
+        request: '@print'
+  done:
+    action: print
+    message: done.

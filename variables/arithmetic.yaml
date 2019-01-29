@@ -1,0 +1,8 @@
+init:
+  i: 1
+  j: 10
+  k: 100
+pipeline:
+  task1:
+    action: print
+    message: ${(k/j)+i}
