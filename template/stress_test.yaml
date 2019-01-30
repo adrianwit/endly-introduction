@@ -1,0 +1,39 @@
+pipeline:
+  test:
+    tag: LoadTest
+    data:
+      ${tagId}.[]Requests: '@data/Request*.json'
+    range: '1..002'
+    subPath: stess_test/${index}_*
+    template:
+      init:
+        action: nop
+        comments: set endpoint port and address
+        init:
+          idx: $AsInt($index)
+          threadCont: ${idx * 4}
+          testEndpointPort: 803$AsInt($index)
+          testEndpoint: 127.0.0.1:${testEndpointPort}
+
+      endpointUp:
+        action: http/endpoint:listen
+        comments: start test endpoint 127.0.0.1:${testEndpointPort}
+        port: $testEndpointPort
+        rotate: true
+        baseDirectory: ${path}/endpoint/
+
+      info:
+        action: print
+        message: starting load testing $testEndpont
+
+      load:
+        action: 'http/runner:load'
+        comments: run load test (40k * 5)
+        assertMod: 40
+        threadCount: $threadCont
+        '@repeat': 40000
+        requests: ${data.${tagId}.Requests}
+
+      load-info:
+        action: print
+        message: 'QPS: $load.QPS: Response: min: $load.MinResponseTimeInMs ms, avg: $load.AvgResponseTimeInMs ms max: $load.MaxResponseTimeInMs ms'

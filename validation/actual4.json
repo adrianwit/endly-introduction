@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "key": "key1"
+    },
+    {
+      "id": 2,
+      "key": "key2"
+    }
+  ],
+  "meta": {
+    "status": "ok",
+    "prop": "val",
+    "ext": {
+      "k": "v"
+    }
+  }
+}

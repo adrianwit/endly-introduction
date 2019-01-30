@@ -103,6 +103,24 @@
     ```bash
     endly -s=workflow -a=print
     ```
+4. Running adhoc service action from CLI (endly 0.28+)
+    * With request attribute supplied as cli arguments
+        - ```endly -run="print" message='hello'``` 
+        - ```endly -run="validator:assert" actual=1 expect=3```
+    * With request delegated to JSON or YAML file
+        - ```endly -run='validator:assert' -req='@service/assert.yaml'```
+        [@service/assert.yaml](service/assert.yaml) 
+        ```yaml
+        actual:
+            - 1
+            - 2
+            - 3
+        expect:
+            - 1
+            - 2
+            - 3    
+        ```
+        
 4. Exec SSH service usage example
     * Service action list: ```endly -s=exec```
     * 'exec:run' contract ```endly -s=exec -a=run```
@@ -163,7 +181,10 @@
    assets:
      'README.md': /tmp/README.md
    ```
-   * execution: ```endly -r=services/delegation```  
+   * execution: ```endly -r=services/delegation```      
+ 
+ 
+ 
  
 #####  Variables
 1. Variables control workflow execution and data substitution
@@ -286,10 +307,103 @@
 3. Tags selection    
     * ```endly -r=template/basic.yaml -i=basic_caseYY``` 
 4. Data loading
-
+    * [@stress_test/stress_test.yaml](template/stress_test.yaml)
+    ```yaml
+    pipeline:
+      test:
+        tag: LoadTest
+        data:
+          ${tagId}.[]Requests: '@data/Request*.json'
+        range: '1..002'
+        subPath: stess_test/${index}_*
+        template:
+          init:
+            action: nop
+            comments: set endpoint port and address
+            init:
+              idx: $AsInt($index)
+              threadCont: ${idx * 4}
+              testEndpointPort: 803$AsInt($index)
+              testEndpoint: 127.0.0.1:${testEndpointPort}
+    
+          endpointUp:
+            action: http/endpoint:listen
+            comments: start test endpoint 127.0.0.1:${testEndpointPort}
+            port: $testEndpointPort
+            rotate: true
+            baseDirectory: ${path}/endpoint/
+    
+          info:
+            action: print
+            message: starting load testing $testEndpont
+    
+          load:
+            action: 'http/runner:load'
+            comments: run load test (40k * 5)
+            assertMod: 40
+            threadCount: $threadCont
+            '@repeat': 40000
+            requests: ${data.${tagId}.Requests}
+    
+          load-info:
+            action: print
+            message: 'QPS: $load.QPS: Response: min: $load.MinResponseTimeInMs ms, avg: $load.AvgResponseTimeInMs ms max: $load.MaxResponseTimeInMs ms'
+    ```    
+    * data node
 
 ##### Validation    
 
+1. Basic validation example        
+    ```bash
+    endly -r=test
+    ```
+    [@validation/test.yaml](validation/test.yaml)
+    ```yaml
+    pipeline:
+      init:
+        action: workflow:print
+        message: init test ...
+      test:
+        workflow: assert
+        actual:
+          key1: value1
+          key2: value20
+          key3: value30
+        expected:
+          key1: value1
+          key2: value2
+          key3: value3
+          key4: value4     
+    ```
+    
+2. Simple validation
+    ```bash
+    endly -run='validator:assert' actual A expect B
+    ``` 
+3.  Data structure validation
+    ```bash
+    endly -run='validator:assert' actual '@validation/actual1.json' expected '@validation/expect1.json'
+    ``` 
+4. Data structure validation with @indexBy@ directive
+    ```bash
+    endly -run='validator:assert' actual '@validation/actual2.json' expected '@validation/expect2.json'
+    ```
+5. Data structure alternative transformation validation (switch/case)
+    ```bash
+    endly -run='validator:assert'  actual '@validation/actual3.json' expected '@validation/expect3.json'
+    ```
+6. Partial validation with @assertPath@ directive 
+    ```bash
+    endly -run='validator:assert'  actual '@validation/actual4.json' expected '@validation/expect4.json'
+    ```
+
+
+
+See more about [validation expression](https://github.com/viant/assertly#validation)
+    
+
+_Validation expressions:_
+- [Assertly](https://github.com/viant/assertly#validation)
 
 ##### Execution Control
 

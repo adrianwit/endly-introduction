@@ -1,0 +1,5 @@
+{
+  "@assertPath@data[1].id": 2,
+  "@assertPath@meta.ext.k": "v",
+  "@length@data": 2
+}

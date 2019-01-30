@@ -1,0 +1,9 @@
+{
+  "Method": "POST",
+  "URL": "http://${testEndpoint}/send5",
+  "Body": "555",
+  "Expect": {
+    "Body": "1555",
+    "Code": 200
+  }
+}
