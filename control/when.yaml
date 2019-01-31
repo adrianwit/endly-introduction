@@ -1,0 +1,14 @@
+pipeline:
+  task1:
+    action1:
+      when: $p = b1
+      action: print
+      message: hello from action 1
+    action2:
+      when: $p = b2
+      action: print
+      message: hello from action 2
+    action3:
+      when: $HasResource('control/hello.txt')
+      action: print
+      message: $Cat('control/hello.txt')

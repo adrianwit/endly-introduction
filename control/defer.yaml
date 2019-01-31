@@ -1,0 +1,12 @@
+pipeline:
+  task1:
+    action1:
+      action: print
+      message: hello action 1
+    action2:
+      when: $failNow=1
+      action: fail
+      message: execption in action 2
+  defer:
+    action: print
+    message: allway run

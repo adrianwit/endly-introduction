@@ -1,0 +1,21 @@
+pipeline:
+  task1:
+    action1:
+      action: print
+      message: hello action 1
+    action2:
+      when: $p = failNow
+      action: fail
+      message: execption in action 2
+    action3:
+      action: print
+      message: hello action 3
+
+  task2:
+    action1:
+      action: print
+      message: hello task 2 action 1
+
+  catch:
+    action: print
+    message: caught $error.Error

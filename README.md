@@ -407,3 +407,140 @@ _Validation expressions:_
 
 ##### Execution Control
 
+1. Conditional action execution
+   * [@control/when.yaml](control/when.yaml)
+    ```yaml
+    pipeline:
+      task1:
+        action1:
+          when: $p = b1
+          action: print
+          message: hello from action 1
+        action2:
+          when: $p = b2
+          action: print
+          message: hello from action 2
+        action3:
+          when: $HasResource('control/hello.txt')
+          action: print
+          message: $Cat('control/hello.txt')
+    ```
+    * ``` endly -r control/when```
+    * ``` endly -r control/when  p=b1```
+2. Parallel execution,
+   * [@control/parallel.yaml](control/parallel.yaml)
+    ```yaml
+    pipeline:
+      task1:
+        multiAction: true
+        action1:
+          action: print
+          message: hello from action 1
+          sleepTimeMs: 3000
+          async: true
+        action2:
+          action: print
+          message: hello from action 2
+          sleepTimeMs: 3000
+        action3:
+          action: print
+          message: hello from action 3
+          sleepTimeMs: 3000
+          async: true
+    ```
+    * ```endly -r=control/parallel```
+    * works on task level with flatten action:multiAction: true
+3. Defer execution
+   * [@control/defer.yaml](control/defer.yaml)
+    ```yaml
+    pipeline:
+      task1:
+        action1:
+          action: print
+          message: hello action 1
+        action2:
+          when: $failNow=1
+          action: fail
+          message: execption in action 2
+      defer:
+        action: print
+        message: allway run
+    
+    ```
+    * ```endly -r=control/defer.yaml ```
+    * ```endly -r=control/defer.yaml failNow=1```
+4. Handling error
+    * [@control/error.yaml](control/error.yaml)
+    ```yaml
+    pipeline:
+      task1:
+        action1:
+          action: print
+          message: hello action 1
+        action2:
+          when: $p = failNow
+          action: fail
+          message: execption in action 2
+        action3:
+          action: print
+          message: hello action 3
+          
+      task2:
+        action1:
+          action: print
+          message: hello task 2 action 1
+    
+      catch:
+        action: print
+        message: caught $error.Error
+    
+    ``` 
+    * ```endly -r=control/error```
+    * ```endly -r=control/error p=failNow```
+5. Loops
+   * [@control/loop.yaml](control/loop.yaml)
+    ```yaml
+    init:
+      self.i: 1
+    pipeline:
+      loop:
+        info:
+          action: print
+          message: pushing message ${self.i}
+    
+    #    trigger:
+    #      action: msg:push
+    #      dest:
+    #        URL: mye2eQueue
+    #        type: queue
+    #        vendor: aws
+    #      messages:
+    #        - data: 'Test: this is my ${self.i} message'
+    #          attributes:
+    #            id: $self.i
+    
+        inc:
+          action: nop
+          logging: false
+          init:
+            _: ${self.i++}
+        until:
+          action: goto
+          logging: false
+          task: loop
+          when: $self.i <= 10
+        done:
+          action: print
+          comments: done
+    
+    ```
+    * ```endly -r=control/loop```
+
+
+##### Debugging & Troubleshooting
+1. Enabling logging
+    ```endly -r=workflow/helloworld -d```
+2. Inspecting workflow domain model
+    ```endly -r=workflow/helloworld -f=yaml -p```    
+3. Diagnose endly execution with [gops](https://github.com/google/gops)
+    * ```gops stack ENDLY_PID```
