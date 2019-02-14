@@ -93,7 +93,7 @@
     ```bash
     endly -s=workflow -a=print
     ```
-4. Running adhoc service action from CLI (endly 0.28+)
+4. Running adhoc service action from CLI
     * With request attribute supplied as cli arguments
         - ```endly -run="print" message='hello'``` 
         - ```endly -run="validator:assert" actual=1 expect=3```
