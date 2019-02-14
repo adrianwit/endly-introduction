@@ -60,9 +60,9 @@
         message: Bye $name
     ```
 2. Workflow execution
-    * with relative path
+    * with relative path and parameters
     ```bash
-    endly -r=workflow/helloworld
+    endly -r=workflow/helloworld name=Endly key1=test
     ```
     * with URL
     ```bash
@@ -76,16 +76,6 @@
     ```bash
     endly -r=workflow/helloworld -t='task1,task3'
     ```
-5. Printing workflow data model
-    ```bash
-    endly -r=workflow/helloworld -p
-    ```
-6. Debugging workflow execution
-    ```bash
-    endly -r=workflow/helloworld -d=true
-    ```
-
-
 
 ##### Services
 
