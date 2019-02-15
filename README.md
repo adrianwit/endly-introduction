@@ -44,7 +44,7 @@
       name: $params.name
     pipeline:
       task1:
-        action: print
+        action: workflow.print
         message: Hello World $name
       task2:
         action: exec:run
