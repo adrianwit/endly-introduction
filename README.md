@@ -1,5 +1,13 @@
 # Endly introduction
 
+
+### Youtube
+
+- [Endly introduction - part I](https://youtu.be/qYeCvQk0DNw)
+- [Endly introduction - part II](https://youtu.be/ut7xnTITI2U)
+- [Endly introduction - part III](https://youtu.be/EF-QJQm41Gc)
+ 
+
 ### Prerequisites
 
 1. [Docker service](https://www.docker.com/get-started)
