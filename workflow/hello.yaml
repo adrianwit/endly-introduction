@@ -2,13 +2,12 @@ init:
   target:
     URL: ssh://127.0.0.1
     credentials: dev
-  name: $params.name
 pipeline:
   task1:
     action: workflow.print
-    message: Hello World $name
+    message: Hello World
   task2:
     action: exec:run
     target: $target
     commands:
-      - echo 'Hello World $name'
+      - echo 'Hello World'
