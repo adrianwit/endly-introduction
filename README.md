@@ -34,7 +34,24 @@
    git clone https://github.com/adrianwit/endly-introduction.git
    ```
 ### Workflow
-
+0. Hello world
+    [@workflow/hello.yaml](workflow/hello.yaml)
+   ```yaml
+    init:
+      target:
+        URL: ssh://127.0.0.1
+        credentials: dev
+      name: $params.name
+    pipeline:
+      task1:
+        action: print
+        message: Hello World $name
+      task2:
+        action: exec:run
+        target: $target
+        commands:
+          - echo 'Hello World $name'
+    ```
 ##### Basic workflow
 1. Workflow definition
     [@workflow/helloworld.yaml](workflow/helloworld.yaml)
@@ -43,7 +60,7 @@
       name: $params.name
     pipeline:
       task1:
-        action: print
+        action: workflow.print
         message: Hello World $name
         description: print hello
       task2:
