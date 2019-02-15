@@ -34,7 +34,9 @@
    git clone https://github.com/adrianwit/endly-introduction.git
    ```
 ### Workflow
-0. Hello world
+1. Hello world
+
+     * ```endly -r=workflow/hello```
     [@workflow/hello.yaml](workflow/hello.yaml)
    ```yaml
     init:
@@ -51,6 +53,7 @@
         commands:
           - echo 'Hello World'
     ```
+   
 ##### Basic workflow
 1. Workflow definition
     [@workflow/helloworld.yaml](workflow/helloworld.yaml)
@@ -314,7 +317,8 @@
 3. Tags selection    
     * ```endly -r=template/basic.yaml -i=basic_caseYY``` 
 4. Data loading
-    * [@stress_test/stress_test.yaml](template/stress_test.yaml)
+    * ```endly -r=template/stress_test``` 
+    * [@template/stress_test.yaml](template/stress_test.yaml)
     ```yaml
     pipeline:
       test:
