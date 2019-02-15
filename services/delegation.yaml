@@ -7,7 +7,7 @@ defaults:
 pipeline:
   task1:
     action: storage:copy
-    request: @copy
+    request: '@copy'
   task2:
     action: exec:run
     commands:
