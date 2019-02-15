@@ -4,7 +4,7 @@ pipeline:
     data:
       ${tagId}.[]Requests: '@data/Request*.json'
     range: '1..002'
-    subPath: stess_test/${index}_*
+    subPath: stress_test/${index}_*
     template:
       init:
         action: nop
