@@ -20,7 +20,7 @@
     ```bash
     ssh root@127.0.0.1 -p 7722 ## password is dev    
     ```
-4. Check endly version (0.27+)    
+4. Check endly version    
    ```bash
     endly -v    
    ```
@@ -31,7 +31,7 @@
 6. Clone this repo
    ```bash
    cd /e2e
-       
+   git clone https://github.com/adrianwit/endly-introduction.git
    ```
 ### Workflow
 
@@ -53,7 +53,7 @@
           message: subTask 1 $params.key1
         subTask2:
           action: print
-          message: subTask 1 $params.name
+          message: subTask 2 $params.name
       task3:
         description: print bye
         action: print

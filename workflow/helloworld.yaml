@@ -12,7 +12,7 @@ pipeline:
       message: subTask 1 $params.key1
     subTask2:
       action: print
-      message: subTask 1 $params.name
+      message: subTask 2 $params.name
   task3:
     description: print bye
     action: print
