@@ -130,6 +130,7 @@
 4. Exec SSH service usage example
     * Service action list: ```endly -s=exec```
     * 'exec:run' contract ```endly -s=exec -a=run```
+    * ```endly -r=services/info.yaml```
     * [@services/info.yaml](services/info.yaml)
     ```yaml
     init:
