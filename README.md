@@ -366,7 +366,7 @@
 
 1. Basic validation example        
     ```bash
-    endly -r=test
+    endly -r=validation/test
     ```
     [@validation/test.yaml](validation/test.yaml)
     ```yaml
