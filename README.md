@@ -1,12 +1,6 @@
 # Endly introduction
 
 
-### Youtube
-
-- [Endly introduction - part I](https://youtu.be/qYeCvQk0DNw)
-- [Endly introduction - part II](https://youtu.be/ut7xnTITI2U)
-- [Endly introduction - part III](https://youtu.be/EF-QJQm41Gc)
- 
 
 ### Prerequisites
 
@@ -563,3 +557,5 @@ _Validation expressions:_
     ```endly -r=workflow/helloworld -f=yaml -p```    
 3. Diagnose endly execution with [gops](https://github.com/google/gops)
     * ```gops stack ENDLY_PID```
+
+
