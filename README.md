@@ -1,6 +1,6 @@
 # Endly introduction
 
-[Watch endly introduction](https://youtu.be/eXVwltuXhXM])
+[Watch endly introduction](https://youtu.be/eXVwltuXhXM)
 
 
 ### Prerequisites
