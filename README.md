@@ -114,6 +114,9 @@
    * specifies action response type  
     ```bash
     endly -s=workflow -a=print
+    #or
+    endly -s=workflow:print
+ 
     ```
 4. Running adhoc service action from CLI
     * With request attribute supplied as cli arguments
@@ -392,7 +395,13 @@
     
 2. Simple validation
     ```bash
+    # to get validator:assert contract:
+    endly -s=validator:assert
+    #run assets    
     endly -run='validator:assert' actual A expect B
+    #or
+    endly validator:assert actual A expect B
+ 
     ``` 
 3.  Data structure validation
     ```bash
