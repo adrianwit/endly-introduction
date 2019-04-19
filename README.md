@@ -290,6 +290,44 @@
         action: print
         message: ${(k/j)+i}
     ```    
+8. Action response variable
+    * After each action execution response can be access via $ACTION_NAME
+    * endly -r=variables/inspect
+    * [@variables/inspect.yaml](variables/inspect.yaml) 
+    ```yaml
+    pipeline:
+      task1:
+        inspect:
+          action: docker:inspect
+          '@name': endly
+          logging: false
+        ipInfo:
+          action: print
+          message: ${inspect.Info[0].NetworkSettings.IPAddress}
+        networkInfo:
+          action: print
+          message: $AsJSON(${inspect.Info[0].NetworkSettings.Networks})
+      task2:
+        inspect:
+          action: docker:inspect
+          '@name': endly
+          ':name': endlyInfo
+          logging: false
+        ipInfo:
+          action: print
+          message: ${endlyInfo.Info[0].NetworkSettings.IPAddress}
+        networkInfo:
+          action: print
+          message: $AsJSON(${endlyInfo.Info[0].NetworkSettings.Networks})
+
+    ```   
+    **Note** that if name is both part of docker:inspect contract (endly -s='docker:inspect'), and 
+    workflow action node model (action has name attribute), '@' prefix is used for service contract, 
+    and ':' for workflow model respectively. 
+    In task1 name of action is inherited from node name ('inspect'),
+    in task2 name is specified with ':' prefix.
+    
+
 
 #####  Workflow Actions Template
 1. Action template repeats N time group of flattened actions defined under template node:
