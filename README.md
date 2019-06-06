@@ -124,7 +124,7 @@
         - ```endly -run="validator:assert" actual=1 expect=3```
     * With request delegated to JSON or YAML file
         - ```endly -run='validator:assert' request='@services/assert.yaml'```
-        [@service/assert.yaml](service/assert.yaml) 
+        [@services/assert.yaml](services/assert.yaml) 
         ```yaml
         actual:
             - 1
