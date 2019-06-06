@@ -170,6 +170,24 @@
         action: print
         message: Extracted 127.0.0.1 aliases $hostInfo.aliases
     ```
+    * Failing SSH workflow based on non 0 command exit code (endly 0.38+)
+    * ```endly -r=services/fail_on_exitcode.yaml```
+    * [@services/info.yaml](services/fail_on_exitcode.yaml)
+    ```yaml
+    init:
+      target:
+        url:  ssh://127.0.0.1/
+        credentials: ${env.HOME}/.secret/dev.json
+    pipeline:
+      package:
+        action: exec:run
+        target: $target
+        checkError: true
+        commands:
+          - whoami
+          - /bin/false
+    ```
+
 5. Request delegation
    * [@services/delegation.yaml](services/delegation.yaml) workflow
    ```yaml

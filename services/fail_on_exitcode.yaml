@@ -1,0 +1,12 @@
+init:
+  target:
+    url:  ssh://127.0.0.1/
+    credentials: ${env.HOME}/.secret/dev.json
+pipeline:
+  package:
+    action: exec:run
+    target: $target
+    checkError: true
+    commands:
+      - whoami
+      - /bin/false
