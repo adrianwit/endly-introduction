@@ -258,7 +258,28 @@
         action: print
         message: $ID $fiveDaysAgo $10DaysAhead $encodedMsg
     ```
-    * ```endly -r=variables/date_setup.yaml```
+    * ```endly -r=variables/udf.yaml```
+    * Loading external data
+    * [@variables/external.yaml](variables/external.yaml) examle
+    ```yaml
+    init:
+      userJ: $AsData($Cat('variables/user.json'))
+      userY: $AsData($Cat('variables/user.yaml'))
+    
+    pipeline:
+      info:
+        action: print
+        message: '${userJ.name}: ${userY.email}, ${userY.phones[1]}'
+      update:
+        action: print
+        init:
+          user: $userJ
+          'user.dob': 2001-01-01
+        message: $AsJSON($user)
+
+    ```
+    * ```endly -r=variables/external.yaml```
+
         
 6. Array/Collection type variable usage
    * [@variables/collection.yaml](variables/collection.yaml)

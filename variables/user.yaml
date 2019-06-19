@@ -1,0 +1,5 @@
+name: foo
+email: bar@yes.com
+phones:
+  - '111 222 3253'
+  - '111 333 2324'

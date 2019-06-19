@@ -1,0 +1,14 @@
+init:
+  userJ: $AsData($Cat('variables/user.json'))
+  userY: $AsData($Cat('variables/user.yaml'))
+
+pipeline:
+  info:
+    action: print
+    message: '${userJ.name}: ${userY.email}, ${userY.phones[1]}'
+  update:
+    action: print
+    init:
+      user: $userJ
+      'user.dob': 2001-01-01
+    message: $AsJSON($user)
