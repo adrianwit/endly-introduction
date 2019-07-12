@@ -219,6 +219,8 @@
  
  
  
+ - [Find more about SSH service](https://github.com/viant/endly/tree/master/system/exec#usage)
+ 
  
 #####  Variables
 1. Variables control workflow execution and data substitution
@@ -597,6 +599,10 @@ _Validation expressions:_
     ``` 
     * ```endly -r=control/error```
     * ```endly -r=control/error p=failNow```
+    
+    
+    
+    
 5. Loops
    * [@control/loop.yaml](control/loop.yaml)
     ```yaml
