@@ -1,0 +1,12 @@
+pipeline:
+  task1:
+    action: print
+    message: hello from parent
+
+  tassk2:
+    action: run
+    request: '@child'
+
+  info:
+    action: print
+    message: "child response: $AsJSON($tassk2)"

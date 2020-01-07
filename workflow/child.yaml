@@ -1,0 +1,12 @@
+init:
+  message: hello from child
+
+pipeline:
+  task1:
+    init:
+      childVar1: $message
+    action: print
+    message: $childVar1
+
+post:
+  myOutput: $childVar1

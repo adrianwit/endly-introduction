@@ -39,7 +39,7 @@
 ### Workflow
 1. Hello world
 
-     * ```endly -r=workflow/hello```
+     * ```endly workflow/hello```
     [@workflow/hello.yaml](workflow/hello.yaml)
    ```yaml
     init:
@@ -84,19 +84,19 @@
 2. Workflow execution
     * with relative path and parameters
     ```bash
-    endly -r=workflow/helloworld name=Endly key1=test
+    endly workflow/helloworld name=Endly key1=test
     ```
     * with URL
     ```bash
-    endly -r=https://github.com/adrianwit/endly-introduction/blob/master/workflow/helloworld.yaml
+    endly https://github.com/adrianwit/endly-introduction/blob/master/workflow/helloworld.yaml
     ```
 3. Workflow task info
     ```bash
-    endly -r=workflow/helloworld -t='?'
+    endly workflow/helloworld -t='?'
     ```
 4. Workflow task selection
     ```bash
-    endly -r=workflow/helloworld -t='task1,task3'
+    endly workflow/helloworld -t='task1,task3'
     ```
 
 ##### Services
@@ -136,10 +136,10 @@
             - 3    
         ```
         
-4. Exec SSH service usage example
+5. Exec SSH service usage example
     * Service action list: ```endly -s=exec```
     * 'exec:run' contract ```endly -s=exec -a=run```
-    * ```endly -r=services/info.yaml```
+    * ```endly services/info.yaml```
     * [@services/info.yaml](services/info.yaml)
     ```yaml
     init:
@@ -171,7 +171,7 @@
         message: Extracted 127.0.0.1 aliases $hostInfo.aliases
     ```
     * Failing SSH workflow based on non 0 command exit code (endly 0.38+)
-    * ```endly -r=services/fail_on_exitcode.yaml```
+    * ```endly services/fail_on_exitcode.yaml```
     * [@services/info.yaml](services/fail_on_exitcode.yaml)
     ```yaml
     init:
@@ -187,8 +187,40 @@
           - whoami
           - /bin/false
     ```
-
-5. Request delegation
+6. Workflow delegation:
+ 
+     * [@services/delegation.yaml](workflow/parent.yaml) workflow
+    ```yaml
+    pipeline:
+      task1:
+        action: print
+        message: hello from parent
+    
+      tassk2:
+        action: run
+        request: '@child'
+    
+      info:
+        action: print
+        message: "child response: $AsJSON($tassk2)"
+    ```
+    * [@services/copy.yaml](workflow/child.yaml) workflow
+    ```yaml
+    init:
+      message: hello from child
+    
+    pipeline:
+      task1:
+        init:
+          childVar1: $message
+        action: print
+        message: $childVar1
+    
+    post:
+      myOutput: $childVar1
+    ```
+    * execution: ```endly workflow/parent``` 
+7. Request delegation
    * [@services/delegation.yaml](services/delegation.yaml) workflow
    ```yaml
    init:
@@ -215,9 +247,8 @@
    assets:
      'README.md': /tmp/README.md
    ```
-   * execution: ```endly -r=services/delegation```      
- 
- 
+   * execution: ```endly services/delegation```      
+
  
  - [Find more about SSH service](https://github.com/viant/endly/tree/master/system/exec#usage)
  
@@ -241,9 +272,9 @@
          action: print
          message: $message
     ``` 
-    - ```endly -r=variables/required.yaml```
-    - ```endly -r=variables/required.yaml to=Endly```
-    - ```endly -r=variables/required.yaml to=Endly greeting=Greetings```
+    - ```endly variables/required.yaml```
+    - ```endly variables/required.yaml to=Endly```
+    - ```endly variables/required.yaml to=Endly greeting=Greetings```
 
 5. User defined function
     * listing loaded UDF ```endly -j ```
@@ -260,7 +291,7 @@
         action: print
         message: $ID $fiveDaysAgo $10DaysAhead $encodedMsg
     ```
-    * ```endly -r=variables/udf.yaml```
+    * ```endly variables/udf.yaml```
     * Loading external data
     * [@variables/external.yaml](variables/external.yaml) examle
     ```yaml
@@ -280,7 +311,7 @@
         message: $AsJSON($user)
 
     ```
-    * ```endly -r=variables/external.yaml```
+    * ```endly variables/external.yaml```
 
         
 6. Array/Collection type variable usage
@@ -333,7 +364,7 @@
     ```    
 8. Action response variable
     * After each action execution response can be access via $ACTION_NAME
-    * endly -r=variables/inspect
+    * endly variables/inspect
     * [@variables/inspect.yaml](variables/inspect.yaml) 
     ```yaml
     pipeline:
@@ -400,9 +431,9 @@
     * request location auto-discovery
     * description discovery
 3. Tags selection    
-    * ```endly -r=template/basic.yaml -i=basic_caseYY``` 
+    * ```endly template/basic.yaml -i=basic_caseYY``` 
 4. Data loading
-    * ```endly -r=template/stress_test``` 
+    * ```endly template/stress_test``` 
     * [@template/stress_test.yaml](template/stress_test.yaml)
     ```yaml
     pipeline:
@@ -451,7 +482,7 @@
 
 1. Basic validation example        
     ```bash
-    endly -r=validation/test
+    endly validation/test
     ```
     [@validation/test.yaml](validation/test.yaml)
     ```yaml
@@ -550,7 +581,7 @@ _Validation expressions:_
           sleepTimeMs: 3000
           async: true
     ```
-    * ```endly -r=control/parallel```
+    * ```endly control/parallel```
     * works on task level with flatten action:multiAction: true
 3. Defer execution
    * [@control/defer.yaml](control/defer.yaml)
@@ -569,8 +600,8 @@ _Validation expressions:_
         message: allway run
     
     ```
-    * ```endly -r=control/defer.yaml ```
-    * ```endly -r=control/defer.yaml failNow=1```
+    * ```endly control/defer.yaml ```
+    * ```endly control/defer.yaml failNow=1```
 4. Handling error
     * [@control/error.yaml](control/error.yaml)
     ```yaml
@@ -597,8 +628,8 @@ _Validation expressions:_
         message: caught $error.Error
     
     ``` 
-    * ```endly -r=control/error```
-    * ```endly -r=control/error p=failNow```
+    * ```endly control/error```
+    * ```endly control/error p=failNow```
     
     
     
@@ -640,14 +671,14 @@ _Validation expressions:_
           comments: done
     
     ```
-    * ```endly -r=control/loop```
+    * ```endly control/loop```
 
 
 ##### Debugging & Troubleshooting
 1. Enabling logging
-    ```endly -r=workflow/helloworld -d```
+    ```endly workflow/helloworld -d```
 2. Inspecting workflow domain model
-    ```endly -r=workflow/helloworld -f=yaml -p```    
+    ```endly workflow/helloworld -f=yaml -p```    
 3. Diagnose endly execution with [gops](https://github.com/google/gops)
     * ```gops stack ENDLY_PID```
 
