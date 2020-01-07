@@ -189,7 +189,7 @@
     ```
 6. Workflow delegation:
  
-     * [@services/delegation.yaml](workflow/parent.yaml) workflow
+     * [@workflow/parent.yaml](workflow/parent.yaml) workflow
     ```yaml
     pipeline:
       task1:
@@ -204,7 +204,7 @@
         action: print
         message: "child response: $AsJSON($tassk2)"
     ```
-    * [@services/copy.yaml](workflow/child.yaml) workflow
+    * [@workflow/child.yaml](workflow/child.yaml) workflow
     ```yaml
     init:
       message: hello from child
