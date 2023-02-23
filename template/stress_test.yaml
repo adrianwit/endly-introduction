@@ -24,7 +24,7 @@ pipeline:
 
       info:
         action: print
-        message: starting load testing $testEndpont
+        message: starting load testing $testEndpoint
 
       load:
         action: 'http/runner:load'
