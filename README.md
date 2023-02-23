@@ -435,7 +435,7 @@
     * request location auto-discovery
     * description discovery
 3. Tags selection    
-    * ```endly template/basic.yaml -i=basic_caseYY``` 
+    * ```endly template/basic.yaml -i=tasksX_basic_caseYY``` 
 4. Data loading
     * ```endly template/stress_test``` 
     * [@template/stress_test.yaml](template/stress_test.yaml)
